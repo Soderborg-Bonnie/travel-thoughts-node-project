@@ -2,18 +2,20 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+// const BodyParser = require('body-parser');
 
 // user model
 const User = require('../models/Users');
-const { forwardAuthenticated } = require('../config/auth');
+// const { forwardAuthenticated } = require('../config/auth');
+
+// thought model
+const Thoughts = require('../models/Thoughts');
 
 // Login page
 router.get('/login', (req, res) => res.render('login'));
 
 // Register page
-router.get('/register', (req, res) => res.render('register'));// {
-//   res.send('respond with a resource');
-// });
+router.get('/register', (req, res) => res.render('register'));
 
 // Register handle
 router.post('/register', (req, res) => {
@@ -73,7 +75,7 @@ router.post('/register', (req, res) => {
               .then(user => {
                 req.flash(
                   'success_msg',
-                  'You are now registered and can log in'
+                  'You made it in! Please log in with your credentials'
                 );
                 res.redirect('/users/login');
               })
@@ -100,5 +102,56 @@ router.get('/logout', (req, res) => {
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
 });
+
+// new info form
+router.get('/additions', (req, res) => res.render('additions'));
+
+  // view info
+router.get('/savedThoughts', (req, res) => res.render('savedThoughts', res));
+// router.get('/savedThoughts', (req, res) => {
+//  let cursor = db.collection('Thoughts').find().toArray(function(err, results){
+//    console.log(results);
+//  });
+//   Thoughts.find({})((error, result) => {
+//     if(error) {
+//       return res.status(500).send(error);
+//     }
+//     res.send(result);
+//   });
+// });
+
+// new info handle
+router.post('/saveForm', (req, res) => {
+  const { name, date, description, myThoughts, locationGPS, locationCity, locationState, locationCountry, pass, cost, rating } = req.body;
+  let errors = [];
+
+  if (!name ) {
+    // fields can't be empty
+    errors.push({ msg: 'Please at least fill in the name' });
+  }else{
+
+        // create new thought
+        const newThoughts = new Thoughts({
+          name,
+          date,
+          description,
+          myThoughts,
+          locationGPS,
+          locationCity,
+          locationState,
+          locationCountry,
+          pass,
+          cost,
+          rating
+        });
+        newThoughts.save()
+        // newThoughts.then(thoughts => {
+          res.redirect('/users/savedThoughts')
+          // res.redirect('/savedThoughts')
+          // res.render('savedThoughts', res)
+        // })
+      
+      }});
+
 
 module.exports = router;

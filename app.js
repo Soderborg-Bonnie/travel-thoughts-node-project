@@ -9,7 +9,9 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-
+const bodyParser = require('body-parser');
+// const MongoClient = require('mongodb').MongoClient;
+// const ObjectId = require('mongodb').ObjectID;
 const app = express();
 
 // Passport Config
@@ -39,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 
 // Express session
 app.use(
