@@ -2,7 +2,12 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-// const BodyParser = require('body-parser');
+const flash = require('connect-flash');
+const createError = require('http-errors');
+const expressLayouts = require('express-ejs-layouts');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const path = require('path');
 
 // user model
 const User = require('../models/Users');
@@ -108,6 +113,13 @@ router.get('/additions', (req, res) => res.render('additions'));
 
   // view info
 router.get('/savedThoughts', (req, res) => res.render('savedThoughts', res));
+
+// router.get('/savedThoughts', (req, res) => res.render('savedThoughts', {name: req.name}));
+
+// router.get('/dashboard', ensureAuthenticated, (req, res) => 
+//   res.render('dashboard', {
+//     name: req.user.name
+//   }));
 // router.get('/savedThoughts', (req, res) => {
 //  let cursor = db.collection('Thoughts').find().toArray(function(err, results){
 //    console.log(results);
@@ -146,9 +158,9 @@ router.post('/saveForm', (req, res) => {
         });
         newThoughts.save()
         // newThoughts.then(thoughts => {
-          res.redirect('/users/savedThoughts')
+          // res.redirect('/users/savedThoughts')
           // res.redirect('/savedThoughts')
-          // res.render('savedThoughts', res)
+          res.render('savedThoughts', res)
         // })
       
       }});
