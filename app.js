@@ -9,6 +9,7 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const dotenv = require('dotenv');
 // const infoRouter = require('./routes/info');
 const bodyParser = require('body-parser');
 // const MongoClient = require('mongodb').MongoClient;
@@ -19,8 +20,12 @@ const app = express();
 require('./config/passport')(passport);
 
 // DB config
-const db = require('./config/keys').MongoURI;
+// const db = require('./config/keys').MongoURI;
 
+// config
+dotenv.config();
+// const url = process.env.Mongo_URI;
+const db = process.env.Mongo_URI;
 // connect to Mongo
 mongoose
   .connect(
