@@ -112,25 +112,24 @@ router.get('/logout', (req, res) => {
 router.get('/additions', (req, res) => res.render('additions'));
 
   // view info
-router.get('/savedThoughts', (req, res) => res.render('savedThoughts', res));
-
+// router.get('/savedThoughts', (req, res) => res.render('savedThoughts', res));
+// db.thoughts.find()
+// db.thoughts.find({name: "Tuacahn"})
 // router.get('/savedThoughts', (req, res) => res.render('savedThoughts', {name: req.name}));
+// router.get('/savedThoughts', (req, res) => res.render('savedThoughts', {db.thoughts.find({name: "Tuacahn"})}));
 
-// router.get('/dashboard', ensureAuthenticated, (req, res) => 
-//   res.render('dashboard', {
-//     name: req.user.name
-//   }));
-// router.get('/savedThoughts', (req, res) => {
-//  let cursor = db.collection('Thoughts').find().toArray(function(err, results){
-//    console.log(results);
-//  });
-//   Thoughts.find({})((error, result) => {
-//     if(error) {
-//       return res.status(500).send(error);
-//     }
-//     res.send(result);
-//   });
-// });
+router.get('/viewThoughts', (req, res) => {
+  // Thoughts.find({_id: '5d17df1cd8fc2d58305796f2'})
+  Thoughts.find()
+         
+          .sort({date: -1})
+          .then(Thoughts => res.json(Thoughts))
+          // .then(Thoughts => res.json.stringify(Thoughts, null, 2))
+          // console.log(Thoughts.date)
+          .catch(err => res.status(404).json({nothoughtsfound: "No thoughts found. Just tumbleweeds."}));
+          // res.render('viewThoughtsList', res)
+});
+
 
 // new info handle
 router.post('/saveForm', (req, res) => {
@@ -160,9 +159,15 @@ router.post('/saveForm', (req, res) => {
         // newThoughts.then(thoughts => {
           // res.redirect('/users/savedThoughts')
           // res.redirect('/savedThoughts')
-          res.render('savedThoughts', res)
+//         router.get('savedThoughts', (req, res) => {
+//           Thoughts.find()
+//             .sort({date: -1})
+//             .then(Thoughts => res.json(Thoughts))
+//             console.log('THOUGHTS: ', Thoughts)
+//             .catch(err => res.status(404).json({nothoughtsfound: "No thoughts found. Just tumbleweeds."}));
+// });
         // })
-      
+        res.render('savedThoughts', res)
       }});
 
 
