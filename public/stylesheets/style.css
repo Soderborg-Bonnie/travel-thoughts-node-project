@@ -6,3 +6,7 @@ body {
 a {
 	color: #00b7ff;
 }
+#static {
+	text-align: center;
+	margin: 1em auto;
+}

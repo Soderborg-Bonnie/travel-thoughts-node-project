@@ -12,9 +12,18 @@ const usersRouter = require('./routes/users');
 const dotenv = require('dotenv');
 // const infoRouter = require('./routes/info');
 const bodyParser = require('body-parser');
+const $       = require( 'jquery' );
+// const dt      = require( 'datatables.net' )( window, $ );
+// const buttons = require( 'datatables.net-buttons' )( window, $ );
 // const MongoClient = require('mongodb').MongoClient;
 // const ObjectId = require('mongodb').ObjectID;
 const app = express();
+
+// thought model
+const Thoughts = require('./models/Thoughts');
+
+// controller for db crud
+const thoughtController = require('./controllers/thoughtController');
 
 // Passport Config
 require('./config/passport')(passport);
@@ -47,6 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Express body parser middleware
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
 // Express session
@@ -94,5 +104,17 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app
+.route("/thoughts")
+.get(thoughtController.listAllThoughts)
+.post(thoughtController.createNewThought);
+
+app
+.route("/thoughts/:thoughtid")
+.get(thoughtController.readThought)
+// .put(thoughtController.updateThought)
+// .delete(thoughtController.deleteThought);
+
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
 module.exports = app;

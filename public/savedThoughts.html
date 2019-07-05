@@ -1,1 +1,148 @@
-<h1>add table here...</h1>
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>NPS campgrounds</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.slim.js"
+  integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
+  crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script> -->
+    <style>
+        ul {
+        list-style-type: none;
+        }
+    </style>
+</head>
+<header>
+</header>
+
+<body id="static">
+    <!-- <table id="thoughtsTable" class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="tableDisplay">Name</th>
+            <th class="tableDisplay">Date</th>
+            <th class="tableDisplay">Description</th>
+            <th class="tableDisplay">Thoughts</th>
+          </tr>
+        </thead>
+        <tbody id="thoughtsTBody">
+          <tr>
+         </tr>
+        </tbody>
+      </table> -->
+
+      <h1>Search NPS Campgrounds</h1>
+    <img src="images/campground2.jpg" alt="campground sign">
+    <hr>
+  <form>
+    <label for="state">State</label>
+    <input type="text" name ="state" id="state" maxlength='2'><br><br>
+    <!-- <button type="button" onclick="getCampgrounds(state.value)">Search</button>  -->
+    <button type="button" id="getCampgrounds">Search</button>       
+  </form>
+  <hr>
+  <div id="campgrounds"></div>
+  <ul id="ulResults"></ul>
+   <table id="NPSCampgroundsTable" class="table table-striped table-bordered">
+     <!-- <thead>
+       <tr>
+         <th class="tableDisplay">Name</th>
+         <th class="tableDisplay">Description</th>
+         <th class="tableDisplay">Total sites</th>
+         <th class="tableDisplay">Directions</th>
+       </tr>
+     </thead>
+     <tbody id="NPSCampgrounds">
+     </tbody> -->
+   </table>
+
+
+   <script type="text/javascript">
+
+      $(document).ready(() => {
+        let thoughtsList = $('#thoughtsTBody');
+        thoughtsList.empty();
+        $('#getCampgrounds').click(() => {
+          
+            $.ajax({
+              type: 'GET',
+              url: "https://developer.nps.gov/api/v1/campgrounds?stateCode=" + state.value + "&api_key=rCFgpEr43g1UnM3z8ZlfnzYtUf0Rd5FxRWRVXb4X",
+              dataType: 'json',
+              success: (data) => {
+                console.log('ajax success!', data);
+                // $('#campgrounds').html('All NPS campgrounds in ' + state.value + ':' );
+                updateResultList(data);
+              } 
+            }).done(function(data){
+              console.log(data);
+              // $.map(data, function(camp, i){
+              //   $('#campgrounds').append('<h3>'+camp.data[i].name+'</h3>');
+              // });
+            });
+        });
+      });
+
+      // $('#NPSCampgrounds').dataTable();
+        
+
+        function updateResultList(data) {
+          let campTable = $('#NPSCampgroundsTable');
+          campTable.empty();
+          campTable.append('<thead><tr><th class="tableDisplay">'+ 'Name' +'</th><th class="tableDisplay">'+ 'Description' +'</th><th class="tableDisplay">'+ 'Total sites' +'</th><th class="tableDisplay">'+ 'Directions' +'</th></tr></thead><tbody id="NPSCampgrounds"></tbody');
+          // $('#NPSCampgrounds').dataTable();
+          // console.log('in updateResultsList');
+          // console.log(data.total);
+          // console.log(data.data[0].name);
+         if (data && data.total > 0) {
+             let resultList = $('#ulResults');
+             resultList.empty();
+             let campList = $('#NPSCampgrounds');
+             campList.empty();
+             // could use a forEach here as well...
+            for (let i = 0; i < data.total; i++) {
+              let name = data.data[i].name;
+            console.log(name);
+            let description = data.data[i].description;
+            let totalSites = data.data[i].campsites.totalsites;
+            console.log(totalSites);
+            let directionsOverview=data.data[i].directionsoverview;
+            
+            if (name == ''){
+              name = 'not available';
+            }
+            if (description == ''){
+              description = 'not available';
+            }
+            if (totalSites == ''){
+              totalSites = 'not available';
+            }
+            if (directionsOverview == ''){
+              directionsOverview = 'not available';
+            }
+
+            // resultList.append('<li><p>'+name+'</p><p>' + description + '</p><p>' + totalSites + '</p><p>'+directionsOverview+'</p></li>');
+            campList.append('<tr><td>'+name+'</td><td>' + description + '</td><td>' + totalSites + '</td><td>'+directionsOverview+'</td></tr>');
+            }
+        }
+        console.log('data.Search else');
+}
+    </script>
+</body>
+    
+</html>
+
+

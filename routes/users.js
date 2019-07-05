@@ -8,13 +8,16 @@ const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const path = require('path');
-
+const app = express();
 // user model
 const User = require('../models/Users');
 // const { forwardAuthenticated } = require('../config/auth');
 
 // thought model
 const Thoughts = require('../models/Thoughts');
+
+// controller for db crud
+// const thoughtController = require('../controllers/thoughtController');
 
 // Login page
 router.get('/login', (req, res) => res.render('login'));
@@ -111,16 +114,11 @@ router.get('/logout', (req, res) => {
 // new info form
 router.get('/additions', (req, res) => res.render('additions'));
 
-  // view info
-// router.get('/savedThoughts', (req, res) => res.render('savedThoughts', res));
-// db.thoughts.find()
-// db.thoughts.find({name: "Tuacahn"})
-// router.get('/savedThoughts', (req, res) => res.render('savedThoughts', {name: req.name}));
-// router.get('/savedThoughts', (req, res) => res.render('savedThoughts', {db.thoughts.find({name: "Tuacahn"})}));
 
+// view saved info
 router.get('/viewThoughts', (req, res) => {
-  // Thoughts.find({_id: '5d17df1cd8fc2d58305796f2'})
-  Thoughts.find()
+  Thoughts.find({_id: '5d17df1cd8fc2d58305796f2'})
+  // Thoughts.find()
          
           .sort({date: -1})
           .then(Thoughts => res.json(Thoughts))
@@ -129,6 +127,7 @@ router.get('/viewThoughts', (req, res) => {
           .catch(err => res.status(404).json({nothoughtsfound: "No thoughts found. Just tumbleweeds."}));
           // res.render('viewThoughtsList', res)
 });
+
 
 
 // new info handle
@@ -156,19 +155,21 @@ router.post('/saveForm', (req, res) => {
           rating
         });
         newThoughts.save()
-        // newThoughts.then(thoughts => {
-          // res.redirect('/users/savedThoughts')
-          // res.redirect('/savedThoughts')
-//         router.get('savedThoughts', (req, res) => {
-//           Thoughts.find()
-//             .sort({date: -1})
-//             .then(Thoughts => res.json(Thoughts))
-//             console.log('THOUGHTS: ', Thoughts)
-//             .catch(err => res.status(404).json({nothoughtsfound: "No thoughts found. Just tumbleweeds."}));
-// });
-        // })
         res.render('savedThoughts', res)
       }});
 
+
+      // API ENDPOINTS
+
+// app
+// .route("/thoughts")
+// .get(thoughtController.listAllThoughts)
+// .post(thoughtController.createNewThought);
+
+// app
+// .route("/thoughts/:thoughtid")
+// .get(thoughtController.readThought)
+// // .put(thoughtController.updateThought)
+// // .delete(thoughtController.deleteThought);
 
 module.exports = router;
