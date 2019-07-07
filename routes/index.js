@@ -15,6 +15,6 @@ router.get('/dashboard', ensureAuthenticated, (req, res) =>
     name: req.user.name
   }));
 
-
+// router.get('/viewThoughtsList', (req, res) => res.render('viewThoughtsList', { name: req.body.name}));
 
 module.exports = router;

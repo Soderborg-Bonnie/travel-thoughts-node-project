@@ -4,7 +4,7 @@
     <title>NPS campgrounds</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -12,21 +12,25 @@
   src="https://code.jquery.com/jquery-3.4.1.slim.js"
   integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
   crossorigin="anonymous"></script> -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-		<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <!-- <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script> -->
-    <style>
-        ul {
-        list-style-type: none;
-        }
-    </style>
+  <link
+  rel="stylesheet"
+  href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+/>
+<link rel="stylesheet" media="screen" href="./stylesheets/style.css" />
+<!-- datatables open source code from https://datatables.net/ -->
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  crossorigin="anonymous"
+></script>    
 </head>
-<header>
+<header  id='staticHeader'>
+  <!-- my own photos -->
+    <img src="images/campground2.jpg" alt="campground sign" id='campSign'>
 </header>
 
 <body id="static">
@@ -46,7 +50,7 @@
       </table> -->
 
       <h1>Search NPS Campgrounds</h1>
-    <img src="images/campground2.jpg" alt="campground sign">
+    <!-- <img src="images/campground2.jpg" alt="campground sign"> -->
     <hr>
   <form>
     <label for="state">State</label>
@@ -55,10 +59,10 @@
     <button type="button" id="getCampgrounds">Search</button>       
   </form>
   <hr>
-  <div id="campgrounds"></div>
+  <div id="campgrounds">
   <ul id="ulResults"></ul>
    <table id="NPSCampgroundsTable" class="table table-striped table-bordered">
-     <!-- <thead>
+     <thead>
        <tr>
          <th class="tableDisplay">Name</th>
          <th class="tableDisplay">Description</th>
@@ -67,43 +71,39 @@
        </tr>
      </thead>
      <tbody id="NPSCampgrounds">
-     </tbody> -->
+     </tbody>
    </table>
-
+  </div>
 
    <script type="text/javascript">
 
       $(document).ready(() => {
+        // $('#NPSCampgroundsTable').DataTable();
         let thoughtsList = $('#thoughtsTBody');
         thoughtsList.empty();
         $('#getCampgrounds').click(() => {
-          
+          $('#NPSCampgroundsTable').DataTable();
             $.ajax({
               type: 'GET',
               url: "https://developer.nps.gov/api/v1/campgrounds?stateCode=" + state.value + "&api_key=rCFgpEr43g1UnM3z8ZlfnzYtUf0Rd5FxRWRVXb4X",
               dataType: 'json',
               success: (data) => {
                 console.log('ajax success!', data);
-                // $('#campgrounds').html('All NPS campgrounds in ' + state.value + ':' );
+                // $('#campgrounds').html('All NPS campgrounds in ' + state.value.toUpperCase + ':' );
                 updateResultList(data);
               } 
             }).done(function(data){
               console.log(data);
-              // $.map(data, function(camp, i){
-              //   $('#campgrounds').append('<h3>'+camp.data[i].name+'</h3>');
-              // });
             });
         });
       });
-
-      // $('#NPSCampgrounds').dataTable();
         
 
         function updateResultList(data) {
+          // $('#NPSCampgroundsTable').DataTable();
           let campTable = $('#NPSCampgroundsTable');
           campTable.empty();
           campTable.append('<thead><tr><th class="tableDisplay">'+ 'Name' +'</th><th class="tableDisplay">'+ 'Description' +'</th><th class="tableDisplay">'+ 'Total sites' +'</th><th class="tableDisplay">'+ 'Directions' +'</th></tr></thead><tbody id="NPSCampgrounds"></tbody');
-          // $('#NPSCampgrounds').dataTable();
           // console.log('in updateResultsList');
           // console.log(data.total);
           // console.log(data.data[0].name);

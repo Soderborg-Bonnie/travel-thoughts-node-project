@@ -117,11 +117,16 @@ router.get('/additions', (req, res) => res.render('additions'));
 
 // view saved info
 router.get('/viewThoughts', (req, res) => {
-  Thoughts.find({_id: '5d17df1cd8fc2d58305796f2'})
-  // Thoughts.find()
+  // Thoughts.find({_id: '5d17df1cd8fc2d58305796f2'})
+  Thoughts.find()
          
           .sort({date: -1})
-          .then(Thoughts => res.json(Thoughts))
+          .then(Thoughts => 
+                name = res.json(Thoughts)
+                
+                )
+          // .then(Thoughts => res.render('viewList'))
+          // .then(Thoughts => res.render('viewThoughtsList'))
           // .then(Thoughts => res.json.stringify(Thoughts, null, 2))
           // console.log(Thoughts.date)
           .catch(err => res.status(404).json({nothoughtsfound: "No thoughts found. Just tumbleweeds."}));

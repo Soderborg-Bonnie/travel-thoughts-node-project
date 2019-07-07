@@ -1,6 +1,7 @@
 body {
-	padding: 50px;
+	/* padding: 50px; */
 	font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+	width: 100%;
 }
 
 a {
@@ -8,5 +9,53 @@ a {
 }
 #static {
 	text-align: center;
-	margin: 1em auto;
+}
+#staticHeader {
+	/* Photo by rawpixel.com from Pexels */
+	background-image: url(/images/arches.jpg);
+	/* background-color: bisque; */
+	/* border-bottom: 5px solid #93b0cb; */
+
+}
+#campSign {
+	border-left: 5px solid #93b0cb;
+	border-right: 5px solid #93b0cb;
+	border-left: 5px solid white;
+	border-right: 5px solid white;
+	margin-left: -35em;
+	box-shadow: 12px 0 15px -4px rgba(31, 73, 125, 0.8), -12px 0 8px -4px rgba(31, 73, 125, 0.8);
+}
+#login {
+	width: 100%;
+	height: auto;
+	/* cairn pic © Can Stock Photo / logoboom */
+	background-image: url(/images/cairn2.jpg);
+}
+#ejsBody {
+	width: 100%;
+	height: auto;
+}
+#register {
+	/* mtns pic © Can Stock Photo / Webtrias */
+	background-image: url(/images/mtns.jpg);
+}
+#dashboard {
+	padding-top: 10em;
+	/* tent pic © Can Stock Photo / mikdam */
+	background-image: url(/images/tent2.jpg);
+	color: white;
+	font-weight: bolder;
+}
+#NPSCampgroundsTable {
+	/* margin: 0 auto;
+	width: 95%; */
+	/* color: #93b0cb; */
+}
+#campgrounds {
+	margin: 0 auto;
+	width: 95%;
+}
+#newThoughtsPage {
+	background-image: url(/images/redDirt.jpg);
+	/* background-image: url(/images/mtns2.jpg); */
 }

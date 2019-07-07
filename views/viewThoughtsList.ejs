@@ -1,3 +1,4 @@
+<body>
 <h1>many thoughts:</h1><br>
 <hr>
 <div class="row">
@@ -6,7 +7,7 @@
     <div class="card">
       <div class="card-content">
         <h3>Name: <%= req.body.name %></h3>
-        <h3>Date: <%= req.body.date %></h3>
+        <!-- <h3>Date: <%= req.body.date %></h3>
         <h3>Description: <%= req.body.description %></h3>
         <h3>Thoughts: <%= req.body.myThoughts %></h3>
         <h3>GPS location: <%= req.body.locationGPS %></h3>
@@ -15,10 +16,59 @@
         <h3>Country: <%= req.body.locationCountry %></h3>
         <h3>Pass: <%= req.body.pass %></h3>
         <h3>Cost: <%= req.body.cost %></h3>
-        <h3>Rating: <%= req.body.rating %></h3>
+        <h3>Rating: <%= req.body.rating %></h3> -->
       </div>
     </div>
   </div>
   <!-- {{else}} -->
   <!-- {{each}} -->
 </div>
+<div id='resultsView'></div>
+<script type="text/javascript">
+
+  $(document).ready(() => {
+    // $('#NPSCampgroundsTable').DataTable();
+    // let thoughtsList = $('#thoughtsTBody');
+    // thoughtsList.empty();
+    // $('#getCampgrounds').click(() => {
+    //   $('#NPSCampgroundsTable').DataTable();
+        $.ajax({
+          type: 'GET',
+          url: "/users/viewThoughts",
+          dataType: 'json',
+          success: (data) => {
+            console.log('ajax success!', data);
+            // $('#campgrounds').html('All NPS campgrounds in ' + state.value.toUpperCase + ':' );
+            updateResultList(data);
+          } 
+        }).done(function(data){
+          console.log(data);
+        });
+    });
+  // });
+    
+
+    function updateResultList(data) {
+      // $('#NPSCampgroundsTable').DataTable();
+      // let campTable = $('#NPSCampgroundsTable');
+      // campTable.empty();
+      // campTable.append('<thead><tr><th class="tableDisplay">'+ 'Name' +'</th><th class="tableDisplay">'+ 'Description' +'</th><th class="tableDisplay">'+ 'Total sites' +'</th><th class="tableDisplay">'+ 'Directions' +'</th></tr></thead><tbody id="NPSCampgrounds"></tbody');
+      // console.log('in updateResultsList');
+      // console.log(data.total);
+      // console.log(data.data[0].name);
+     if (data && data.total > 0) {
+         let resultList = $('#resultsView');
+         resultList.empty();
+        //  let campList = $('#NPSCampgrounds');
+        //  campList.empty();
+         // could use a forEach here as well...
+        for (let i = 0; i < 3; i++) {
+          let name = data[i].name;
+        console.log(name);
+
+        }
+    }
+    console.log('data.Search else');
+}
+</script>
+</body>
