@@ -11,7 +11,8 @@ const path = require('path');
 const app = express();
 // user model
 const User = require('../models/Users');
-// const { forwardAuthenticated } = require('../config/auth');
+
+const { forwardAuthenticated } = require('../config/auth');
 
 // thought model
 const Thoughts = require('../models/Thoughts');
