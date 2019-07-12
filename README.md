@@ -1,3 +1,3 @@
 # travel-thoughts
-# travel-thoughts-node-project
-# an app for remembering the good and bad of places and activities
+travel-thoughts-node-project
+an app for remembering the good and bad of places and activities

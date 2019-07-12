@@ -7,12 +7,12 @@ const createError = require('http-errors');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const { forwardAuthenticated } = require('../config/auth');
 const path = require('path');
 const app = express();
+
 // user model
 const User = require('../models/Users');
-
-const { forwardAuthenticated } = require('../config/auth');
 
 // thought model
 const Thoughts = require('../models/Thoughts');
@@ -35,15 +35,12 @@ router.post('/register', (req, res) => {
     // fields can't be empty
     errors.push({ msg: 'Please fill in all fields' });
   }
-
   if (password != password2) {
     errors.push({ msg: 'Passwords do not match' });
   }
-
   if (password.length < 6) {
     errors.push({ msg: 'Password must be at least 6 characters' });
   }
-
   if (errors.length > 0) {
     res.render('register', {
       errors,
@@ -175,7 +172,7 @@ router.post('/saveForm', (req, res) => {
 // app
 // .route("/thoughts/:thoughtid")
 // .get(thoughtController.readThought)
-// // .put(thoughtController.updateThought)
-// // .delete(thoughtController.deleteThought);
+// .put(thoughtController.updateThought)
+// .delete(thoughtController.deleteThought);
 
 module.exports = router;
