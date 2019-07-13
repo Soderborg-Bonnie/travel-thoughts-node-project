@@ -33,27 +33,6 @@ router.get('/viewThoughts', (req, res) => {
           .catch(err => res.status(404).json({nothoughtsfound: "No thoughts found. Just tumbleweeds."}));
           // res.render('viewThoughtsList', res)
 });
-// router.get('/viewThoughts', (req, res) => {
-//   // Thoughts.find({_id: '5d17df1cd8fc2d58305796f2'})
-//   // toArray gets error that it is not a function
-//   Thoughts.find({}).toArray(function(err, docs){
-//     console.log("retieved records:");
-//     console.log(docs);
-//   });
-         
-//           // .sort({date: -1})
-//           // .then(Thoughts => 
-//           //       name = res.json(Thoughts)
-                
-//           //       )
-//           // .then(Thoughts => res.render('viewList'))
-//           // .then(Thoughts => res.render('viewThoughtsList'))
-//           // .then(Thoughts => res.json.stringify(Thoughts, null, 2))
-//           // console.log(Thoughts.date)
-//           // .catch(err => res.status(404).json({nothoughtsfound: "No thoughts found. Just tumbleweeds."}));
-//           // res.render('viewThoughtsList', res)
-// });
-
 
 
 // new info handle
@@ -85,18 +64,5 @@ router.post('/saveForm', (req, res) => {
       }});
 
 
-      // API ENDPOINTS
-
-// app
-// .route("/thoughts")
-// .get(thoughtController.listAllThoughts)
-// .post(thoughtController.createNewThought);
-
-// app
-// .route("/thoughts/:thoughtid")
-// .get(thoughtController.readThought)
-// .put(thoughtController.updateThought)
-// .delete(thoughtController.deleteThought);
-
-module.exports = router;
+      module.exports = router;
 
