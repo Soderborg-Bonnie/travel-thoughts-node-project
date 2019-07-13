@@ -9,14 +9,10 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const infoRouter = require('./routes/info');
 const dotenv = require('dotenv');
-// const infoRouter = require('./routes/info');
 const bodyParser = require('body-parser');
 const $       = require( 'jquery' );
-// const dt      = require( 'datatables.net' )( window, $ );
-// const buttons = require( 'datatables.net-buttons' )( window, $ );
-// const MongoClient = require('mongodb').MongoClient;
-// const ObjectId = require('mongodb').ObjectID;
 const app = express();
 
 // thought model
@@ -87,7 +83,7 @@ app.use((req, res, next) => {
 // app.use ('/', require('.routes/index'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-// app.use('/info', infoRouter);
+app.use('/info', infoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

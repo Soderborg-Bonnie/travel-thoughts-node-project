@@ -15,7 +15,7 @@ const app = express();
 const User = require('../models/Users');
 
 // thought model
-const Thoughts = require('../models/Thoughts');
+// const Thoughts = require('../models/Thoughts');
 
 // controller for db crud
 // const thoughtController = require('../controllers/thoughtController');

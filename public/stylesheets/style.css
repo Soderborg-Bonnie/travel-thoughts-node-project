@@ -7,7 +7,7 @@ body {
 a {
 	color: #00b7ff;
 }
-#static {
+#static, #mainPage {
 	text-align: center;
 }
 #staticHeader {
@@ -46,12 +46,7 @@ a {
 	color: white;
 	font-weight: bolder;
 }
-#NPSCampgroundsTable {
-	/* margin: 0 auto;
-	width: 95%; */
-	/* color: #93b0cb; */
-}
-#campgrounds {
+#campgrounds, #thinks {
 	margin: 0 auto;
 	width: 95%;
 }
