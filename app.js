@@ -25,9 +25,6 @@ const thoughtController = require('./controllers/thoughtController');
 require('./config/passport')(passport);
 
 // DB config
-// const db = require('./config/keys').MongoURI;
-
-// DB config
 dotenv.config();
 // const url = process.env.Mongo_URI;
 const db = process.env.Mongo_URI;

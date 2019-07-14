@@ -10,12 +10,9 @@ a {
 #static, #mainPage {
 	text-align: center;
 }
-#staticHeader {
-	/* Photo by rawpixel.com from Pexels */
+.staticHeader {
+	/* Photo by me */
 	background-image: url(/images/arches.jpg);
-	/* background-color: bisque; */
-	/* border-bottom: 5px solid #93b0cb; */
-
 }
 #campSign {
 	border-left: 5px solid #93b0cb;
@@ -37,7 +34,7 @@ a {
 }
 #register {
 	/* mtns pic © Can Stock Photo / Webtrias */
-	background-image: url(/images/mtns.jpg);
+	background-image: url(/images/river.jpg);
 }
 #dashboard {
 	padding-top: 10em;
@@ -51,6 +48,32 @@ a {
 	width: 95%;
 }
 #newThoughtsPage {
-	background-image: url(/images/redDirt.jpg);
-	/* background-image: url(/images/mtns2.jpg); */
+	/* background-image: url(/images/redDirt.jpg); */
+	background-color:rgba(31, 73, 125, 0.8);
 }
+#mainArea {
+	display: grid;
+	grid-template-columns: 1fr 6fr;
+}
+#leftNav {
+	margin-left: 2em;
+}
+#nav {
+	list-style: none;
+	text-align: left;
+}
+.logLinks {
+	color: white;
+	position: relative;
+	margin-right: 1em;
+	margin-bottom: 1em;
+}
+#logout {
+	margin-top: 5em;
+}
+#NPSCampgroundsTable {
+	text-align: left;
+}
+/* .formGroup2 {
+	display: inline;
+} */

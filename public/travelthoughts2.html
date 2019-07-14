@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>NPS campgrounds</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" media="screen" href="./stylesheets/style.css" />
+    <!-- datatables open source code from https://datatables.net/ -->
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/ataTables.bootstrap4.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>    
+  </head>
+  <body id="mainPage">
+    <header class='staticHeader'> 
+        <!-- my own photos --> 
+        <img src="images/campground2.jpg" alt="campground sign" id='campSign'>     
+    </header>     
+    <br><br><br><br><br>
+    <button type="button" id="getThoughts" class = "btn btn-primary btn-lg">Search the cobwebs</button> 
+    <a href = 'dashboard' class="btn btn-secondary return">Return to dashboard</a>       
+    <hr>
+
+    <div id="thinks">
+      <ul id="ulResults"></ul>      
+      <table id="thoughtsTable" class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="tableDisplay">Name</th>
+            <th class="tableDisplay">Date</th>
+            <th class="tableDisplay">Description</th>
+            <th class="tableDisplay">Thoughts</th>
+          </tr>
+        </thead>
+        <tbody id="thoughtsTBody">
+          <tr>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      
+        
+    <script type="text/javascript">
+      $(document).ready(() => {
+        let thoughtsList = $('#thoughtsTBody');
+          thoughtsList.empty();
+          $('#getThoughts').click(() => {
+            $('#thoughtsTable').DataTable();
+              $.ajax({
+                type: 'GET',
+                url: "/info/viewThoughts",
+                dataType: 'json',
+                success: (data) => {
+                  console.log('ajax success!', data);
+                  updateResultList(data);
+                } 
+              }).done(function(data){
+                console.log(data);
+              });
+          });
+      });
+          
+
+      function updateResultList(data) {
+        let dataTable = $('#thoughtsTable');
+          dataTable.empty();
+          dataTable.append('<thead><tr><th class="tableDisplay">'+ 'Name' +'</th><th class="tableDisplay">'+ 'Description' +'</th><th class="tableDisplay">'+ 'Thoughts' +'</th><th class="tableDisplay">'+ 'Rating' +'</th></tr></thead><tbody id="thoughtsTBody"></tbody');
+          let resultList = $('#ulResults');
+          resultList.empty();
+          let thoughtList = $('#thoughtsTBody');
+          thoughtList.empty();
+
+          for (i in data) {
+            let name = data[i].name;
+            console.log(name);
+            let description = data[i].description;
+            let thoughts = data[i].myThoughts;
+            console.log(thoughts);
+            let rating=data[i].rating;
+              
+            if (name == ''){
+              name = 'not available';
+            }
+            if (description == ''){
+              description = 'not available';
+            }
+            if (thoughts == ''){
+              thoughts = 'not available';
+            }
+            if (rating == 'null'){
+              rating = 'not available';
+            }
+
+            thoughtList.append('<tr><td>'+name+'</td><td>' + description + '</td><td>' + thoughts + '</td><td>'+rating+'</td></tr>');
+          }
+          console.log('data.Search else');
+      }
+    </script>
+  </body>
+</html>
