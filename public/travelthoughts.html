@@ -22,6 +22,14 @@
     <header class='staticHeader'> 
         <!-- my own photos --> 
         <img src="images/campground2.jpg" alt="campground sign" id='campSign'>
+        <nav>
+          <ul>
+            <li><a href='/users/register'>Register</a></li>
+            <li><a href='/users/login'>Login</a></li>
+            <li><a href='/users/logout'>Logout</a></li>
+          </ul>
+        </nav>
+
     </header>  
     <br><br><br>   
   <div id = 'mainArea'>
@@ -37,7 +45,7 @@
       <div>Placeholder for Welcome</div>
       <div>Placeholder for Registration</div>
       <div>Placeholder for Login</div>
-      <div>Placeholder for Adding Thoughts</div>
+      <div id = 'addInfo'>placeholder</div>
       <div>Placeholder for Viewing Thoughts</div>
       <div>Placeholder for Campgrounds</div>
   </div>
@@ -72,6 +80,8 @@
               success: (data) => {
                 console.log('ajax success!', data);
                 updateResultList(data);
+                $('#addInfo').html('<strong>Add new stuff:</strong> ' + data); 
+					},
               } 
             }).done(function(data){
               console.log(data);

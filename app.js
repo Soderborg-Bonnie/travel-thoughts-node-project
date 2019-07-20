@@ -82,6 +82,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/info', infoRouter);
 
+// 404 error msg
+app.use((req, res, next) => {
+  res.status(404).send("Uhhhh.....I think you're lost.")
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
