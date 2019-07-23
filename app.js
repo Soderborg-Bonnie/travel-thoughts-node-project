@@ -13,6 +13,8 @@ const infoRouter = require('./routes/info');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const $       = require( 'jquery' );
+const router = express.Router();
+
 const app = express();
 
 // thought model
@@ -37,6 +39,21 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
+
+
+router.use(logRequest) 
+
+
+
+// header allowances to avoid CORS
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT, PATCH');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
+
 //EJS layouts
 app.use(expressLayouts);
 
@@ -46,6 +63,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Express body parser middleware
 app.use(express.urlencoded({ extended: true }));
@@ -77,7 +95,6 @@ app.use((req, res, next) => {
 });
 
 //routes
-// app.use ('/', require('.routes/index'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/info', infoRouter);
@@ -112,6 +129,17 @@ app
 .get(thoughtController.readThought)
 // .put(thoughtController.updateThought)
 // .delete(thoughtController.deleteThought);
+
+
+function logRequest(request, res, next)
+{
+    // DEBUG ONLY -- console.log('LOG: Time:', Date.now())
+    console.log("LOG: Received a "+ request.method +" request for: " + request.url);
+
+
+    next()
+}
+
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
 module.exports = app;

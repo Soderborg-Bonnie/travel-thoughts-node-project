@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>NPS campgrounds</title>
+    <title>Thoughts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -12,7 +12,7 @@
     <!-- datatables open source code from https://datatables.net/ -->
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/ataTables.bootstrap4.min.js">
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -52,21 +52,104 @@
         let thoughtsList = $('#thoughtsTBody');
           thoughtsList.empty();
           $('#getThoughts').click(() => {
-            $('#thoughtsTable').DataTable();
-              $.ajax({
-                type: 'GET',
-                url: "/info/viewThoughts",
-                dataType: 'json',
-                success: (data) => {
-                  console.log('ajax success!', data);
-                  updateResultList(data);
-                } 
-              }).done(function(data){
-                console.log(data);
-              });
+          //  const info = 
+           $('#thoughtsTable').DataTable();
+            // "processing": true,
+            // "searching": true,
+            // "paging": true,
+            // "pageLength": 10,
+            // "serverSide": true,
+          // });
+            $.ajax({
+              type: 'GET',
+              url: "/info/viewThoughts",
+              dataSrc: 'data',
+              dataType: 'json',
+              deferRender: true,
+              success: (data) => {
+                console.log('ajax success!', data);
+                updateResultList(data);
+              } 
+            }).done(function(data){
+              console.log(data);
+            });
+            });
           });
-      });
-          
+                    // });
+
+            // ,
+            // "columns": [
+            //   {"data" : "Name"},
+            //   {"data" : "Description"},
+            //   {"data" : "Thoughts"},
+            //   {"data" : "Rating"}
+            // ],
+            // "columnDefs": [
+            //   {
+            //     "searchable": false,
+            //     "orderable": false,
+            //     "targets": 0
+            //   }
+            // ]
+
+            // $('#thoughtsTable').DataTable({
+            //   serverSide: true,
+            //   ajax:'data.json',
+                // $.ajax({
+                //   type: 'GET',
+                //   url: "/info/viewThoughts",
+                //   dataSrc: 'dataX',
+                //   dataType: 'json',
+                //   success: (data) => {
+                //     console.log('ajax success!', data);
+                //     updateResultList(data);
+                //   } 
+                // }).done(function(data){
+                //   console.log(data);
+                // });
+          //   });
+          // });
+      // });
+
+          // });
+                    // });
+
+      // });
+          //   $('#thoughtsTable').dataTable().fnDestroy();
+          //   $('#thoughtsTable').dataTable({
+          //   lengthChange: false,
+          //   "processing": true,
+          //   "serverSide": false,
+          // // });
+          //   "ajax":{
+          //     type: 'GET',
+          //     url: "/info/viewThoughts",
+          //     dataSrc: 'dataX',
+          //     dataType: 'json',
+          //     "deferRender": true
+          //     // success: (data) => {
+          //     //   console.log('ajax success!', data);
+          //     //   updateResultList(data);
+          //     } 
+          //   });
+          //   });
+
+            // ,
+            // columns: [
+            //   {data : "Name"},
+            //   {data : "Description"},
+            //   {data : "Thoughts"},
+            //   {data : "Rating"},
+            // ]
+            // )
+            // .done(function(data){
+            //   console.log(data);
+            // });
+            // });
+      //     });
+      //        });
+      // });
+       
 
       function updateResultList(data) {
         let dataTable = $('#thoughtsTable');

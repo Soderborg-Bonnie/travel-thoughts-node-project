@@ -16,7 +16,13 @@
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>    
+    crossorigin="anonymous"></script>  
+  <script src="../app.js"></script>
+  <script>
+    function addInfo(){
+      document.getElementById('newThoughtsPage').style.visibility = "visible";
+    }
+  </script>
 </head>
 <body id="mainPage">
     <header class='staticHeader'> 
@@ -34,7 +40,9 @@
     <br><br><br>   
   <div id = 'mainArea'>
     <div id ='leftNav'>
-      <a href="/info/additions" id = "additions" class = "btn btn-primary btn-lg btn-block">Add thought</a>
+      <!-- <a href="/info/additions" id = "additions" class = "btn btn-primary btn-lg btn-block">Add thought</a> -->
+      <button onclick ="addInfo()" id = "additions" class = "btn btn-primary btn-lg btn-block">Add thought</button>
+
       <button type="button" id="travelthoughts2" class="btn btn-primary btn-lg btn-block">View thoughts</button>
       <button type="button" id="savedThoughts" class="btn btn-primary btn-lg btn-block">View campgrounds</button>
 
@@ -46,11 +54,153 @@
       <div>Placeholder for Registration</div>
       <div>Placeholder for Login</div>
       <div id = 'addInfo'>placeholder</div>
+      <div id='newThoughtsPage'>
+        <div class="row mt-5">
+          <div class="col-md-6 m-auto">
+            <div class="card card-body">
+              <h1 class="text-center mb-3">
+                Save your thoughts here
+              </h1>
+              <form action="/info/saveForm" method="POST">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input
+                    type="name"
+                    id="name"
+                    name="name"
+                    class="form-control"
+                    placeholder="Enter name of place/activity/etc."
+                    value="name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="date">Date</label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    class="form-control"
+                    placeholder="Enter date"
+                    value="date"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <input
+                    type="description"
+                    id="description"
+                    name="description"
+                    class="form-control"
+                    placeholder="Description"
+                    value="description"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="myThoughts">Thoughts</label>
+                  <input
+                    type="myThoughts"
+                    id="myThoughts"
+                    name="myThoughts"
+                    class="form-control"
+                    placeholder="Thoughts"
+                    value="myThoughts"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="locationGPS">GPS location</label>
+                  <input
+                    type="locationGPS"
+                    id="locationGPS"
+                    name="locationGPS"
+                    class="form-control"
+                    placeholder="x-coordinate y-coordinate"
+                    value="locationGPS"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="locationCity">City</label>
+                  <input
+                    type="locationCity"
+                    id="locationCity"
+                    name="locationCity"
+                    class="form-control"
+                    placeholder="City"
+                    value="locationCity"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="locationState">State</label>
+                  <input
+                    type="locationState"
+                    id="locationState"
+                    name="locationState"
+                    class="form-control"
+                    placeholder="State"
+                    value="locationState"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="locationCountry">Country</label>
+                  <input
+                    type="locationCountry"
+                    id="locationCountry"
+                    name="locationCountry"
+                    class="form-control"
+                    placeholder="Country"
+                    value="locationCountry"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pass">Pass</label>
+                  <input
+                    type="pass"
+                    id="pass"
+                    name="pass"
+                    class="form-control"
+                    placeholder="Type of pass required"
+                    value="pass"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="cost">Cost</label>
+                  <input
+                    type="cost"
+                    id="cost"
+                    name="cost"
+                    class="form-control"
+                    placeholder="Cost"
+                    value="cost"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="rating">Rating</label>
+                  <input
+                    type="rating"
+                    id="rating"
+                    name="rating"
+                    class="form-control"
+                    placeholder="Rating 1-10"
+                    value="rating"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                  Save those thoughts!
+                </button>
+              </form>
+              <br>
+              <a href = '/dashboard' class="btn btn-primary btn-block">
+                  Cancel
+                </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div>Placeholder for Viewing Thoughts</div>
       <div>Placeholder for Campgrounds</div>
   </div>
 </div>
-
 <script type="text/javascript">
 
       $(document).ready(() => {
@@ -81,28 +231,55 @@
                 console.log('ajax success!', data);
                 updateResultList(data);
                 $('#addInfo').html('<strong>Add new stuff:</strong> ' + data); 
+                document.getElementById(newThoughtsPage).style.visibility = "visible";
 					},
               } 
             }).done(function(data){
               console.log(data);
             });
+              // document.getElementById(newThoughtsPage).style.visibility = "visible";
+
         });
 
         $('#travelthoughts2').click(() => {
-          // $('#thoughtsTable').DataTable();
-            $.ajax({
+          // setTimeout(() =>{
+          $('#thoughtsTable').dataTable({
+            // lengthChange: false,
+            "processing": true,
+            "paging": true,
+            "pageLength": 10,
+            "serverSide": true,
+          // });
+            "ajax":{
               type: 'GET',
               url: "/info/viewThoughts",
+              dataSrc: 'dataX'
               dataType: 'json',
-              success: (data) => {
-                console.log('ajax success!', data);
-                updateResultList(data);
-              } 
-            }).done(function(data){
-              console.log(data);
-            });
-        });
+              "deferRender": true,
+              // success: (data) => {
+              //   console.log('ajax success!', data);
+              //   updateResultList(data);
+              // } 
+            }
+            // ,
+            columns: [
+              {data : "Name"},
+              {data : "Description"},
+              {data : "Thoughts"},
+              {data : "Rating"},
+            ]
+            // )
+            // .done(function(data){
+            //   console.log(data);
+            // // });
+            // });
+          });
+        // });
+                  // }, 100)
+
         $('#savedThoughts').click(() => {
+        // $('#savedThoughts').click(() => {
+
           // $('#thoughtsTable').DataTable();
             $.ajax({
               type: 'GET',
@@ -131,6 +308,8 @@
             console.log('logged out');
 
         });
+                  // });
+
       });
       
 

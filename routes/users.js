@@ -14,11 +14,6 @@ const app = express();
 // user model
 const User = require('../models/Users');
 
-// thought model
-// const Thoughts = require('../models/Thoughts');
-
-// controller for db crud
-// const thoughtController = require('../controllers/thoughtController');
 
 // Login page
 router.get('/login', (req, res) => res.render('login'));
@@ -96,7 +91,6 @@ router.post('/register', (req, res) => {
 // login handle
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
-    // successRedirect: '/dashboard',
     successRedirect: '/dashboard',
     failureRedirect: '/users/login',
     failureFlash: true

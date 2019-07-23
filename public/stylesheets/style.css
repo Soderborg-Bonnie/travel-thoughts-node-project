@@ -57,8 +57,10 @@ padding: .7em
 	width: 95%;
 }
 #newThoughtsPage {
+	padding: 3em;
+	visibility: hidden;
 	/* background-image: url(/images/redDirt.jpg); */
-	background-color:rgba(31, 73, 125, 0.8);
+	/* background-color:rgba(31, 73, 125, 0.8); */
 }
 #mainArea {
 	display: grid;
