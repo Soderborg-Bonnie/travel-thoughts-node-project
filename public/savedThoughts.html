@@ -70,7 +70,6 @@
               dataType: 'json',
               success: (data) => {
                 console.log('ajax success!', data);
-                // $('#campgrounds').html('All NPS campgrounds in ' + state.value.toUpperCase + ':' );
                 updateResultList(data);
               } 
             }).done(function(data){
@@ -81,27 +80,24 @@
         
 
         function updateResultList(data) {
-          // $('#NPSCampgroundsTable').DataTable();
           let campTable = $('#NPSCampgroundsTable');
           campTable.empty();
           campTable.append('<thead><tr><th class="tableDisplay">'+ 'Name' +'</th><th class="tableDisplay">'+ 'Description' +'</th><th class="tableDisplay">'+ 'Total sites' +'</th><th class="tableDisplay">'+ 'Directions' +'</th></tr></thead><tbody id="NPSCampgrounds"></tbody');
-          // console.log('in updateResultsList');
-          // console.log(data.total);
-          // console.log(data.data[0].name);
          if (data && data.total > 0) {
              let resultList = $('#ulResults');
              resultList.empty();
              let campList = $('#NPSCampgrounds');
              campList.empty();
-             // could use a forEach here as well...
             for (let i = 0; i < data.total; i++) {
               let name = data.data[i].name;
             console.log(name);
             let description = data.data[i].description;
             let totalSites = data.data[i].campsites.totalsites;
             console.log(totalSites);
-            let directionsOverview=data.data[i].directionsoverview;
-            
+            let directionsOverview= data.data[i].directionsoverview;
+            let directionsUrl = data.data[i].directionsUrl;
+            console.log(directionsUrl);
+
             if (name == ''){
               name = 'not available';
             }
@@ -114,9 +110,15 @@
             if (directionsOverview == ''){
               directionsOverview = 'not available';
             }
+            if (directionsUrl == ''){
+            campList.append('<tr><td>' + name + '</td><td>' + description + '</td><td>' + totalSites + '</td><td>'+directionsOverview+'</td></tr>');
+            }else{
+            campList.append('<tr><td><a href="' + directionsUrl + '">' + name + '</a></td><td>' + description + '</td><td>' + totalSites + '</td><td>'+directionsOverview+'</td></tr>');
+            };
+
 
             // resultList.append('<li><p>'+name+'</p><p>' + description + '</p><p>' + totalSites + '</p><p>'+directionsOverview+'</p></li>');
-            campList.append('<tr><td>'+name+'</td><td>' + description + '</td><td>' + totalSites + '</td><td>'+directionsOverview+'</td></tr>');
+            // campList.append('<tr><td><a href="' + directionsUrl + '">' + name + '</a></td><td>' + description + '</td><td>' + totalSites + '</td><td>'+directionsOverview+'</td></tr>');
             }
         }
         console.log('data.Search else');

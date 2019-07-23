@@ -16,7 +16,7 @@ router.use(logRequest)
 router.get('/viewThoughtsList', (req, res) => res.render('viewThoughtsList', { name: req.body.name}));
 
 // new info form
-// router.get('/additions', (req, res) => res.render('additions'));
+router.get('/additions', (req, res) => res.render('additions'));
 // router.get('/additions', (req, res, next) => res.send('<h1>trying to replace div for adding new thoughts</div>'));
 // router.get('/additions', (req, res) => {
 //   document.getElementById(newThoughtsPage).style.visibility = "visible"});
@@ -172,7 +172,39 @@ router.post('/saveForm', (req, res) => {
         });
         newThoughts.save()
         res.render('savedThoughts', res)
+
       }});
+
+router.post('/saveForm2', (req, res) => {
+  const { name, date, description, myThoughts, locationGPS, locationCity, locationState, locationCountry, pass, cost, rating } = req.body;
+  let errors = [];
+
+  if (!name ) {
+    // fields can't be empty
+    errors.push({ msg: 'Please at least fill in the name' });
+  }else{
+
+        // create new thought
+        const newThoughts = new Thoughts({
+          name,
+          date,
+          description,
+          myThoughts,
+          locationGPS,
+          locationCity,
+          locationState,
+          locationCountry,
+          pass,
+          cost,
+          rating
+        });
+        newThoughts.save()
+        res.redirect('../travelthoughts2.html')
+        // res.end('../travelthoughts2.html')
+
+      }});
+
+
 function logRequest(request, res, next)
 {
     // DEBUG ONLY -- console.log('LOG: Time:', Date.now())

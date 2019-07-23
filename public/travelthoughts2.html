@@ -28,6 +28,151 @@
     <a href = 'dashboard' class="btn btn-secondary return">Return to dashboard</a>       
     <hr>
 
+<div id='additionalInfo'>
+  <div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        <h1 class="text-center mb-3">
+          Change the details
+        </h1>
+        <form action="./info/saveForm2" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="name"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Enter name of place/activity/etc."
+              value=""
+            />
+            <p id="name2"></p>
+          </div>
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              class="form-control"
+              placeholder="Enter date"
+              value=""
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input
+              type="description"
+              id="description"
+              name="description"
+              class="form-control"
+              placeholder="Description"
+              value=""
+            />
+          </div>
+          <div class="form-group">
+            <label for="myThoughts">Thoughts</label>
+            <input
+              type="myThoughts"
+              id="myThoughts"
+              name="myThoughts"
+              class="form-control"
+              placeholder="Thoughts"
+              value=""
+            />
+          </div>
+          <div class="form-group">
+            <label for="locationGPS">GPS location</label>
+            <input
+              type="locationGPS"
+              id="locationGPS"
+              name="locationGPS"
+              class="form-control"
+              placeholder="x-coordinate y-coordinate"
+              value=""
+            />
+          </div>
+          <div class="form-group">
+            <label for="locationCity">City</label>
+            <input
+              type="locationCity"
+              id="locationCity"
+              name="locationCity"
+              class="form-control"
+              placeholder="City"
+              value=""
+            />
+          </div>
+          <div class="form-group">
+            <label for="locationState">State</label>
+            <input
+              type="locationState"
+              id="locationState"
+              name="locationState"
+              class="form-control"
+              placeholder="State"
+              value=""
+            />
+          </div>
+          <div class="form-group">
+            <label for="locationCountry">Country</label>
+            <input
+              type="locationCountry"
+              id="locationCountry"
+              name="locationCountry"
+              class="form-control"
+              placeholder="Country"
+              value=""
+            />
+          </div>
+          <div class="form-group">
+            <label for="pass">Pass</label>
+            <input
+              type="pass"
+              id="pass"
+              name="pass"
+              class="form-control"
+              placeholder="Type of pass required"
+              value=""
+            />
+          </div>
+          <div class="form-group">
+            <label for="cost">Cost</label>
+            <input
+              type="cost"
+              id="cost"
+              name="cost"
+              class="form-control"
+              placeholder="Cost"
+              value=""
+            />
+          </div>
+          <div class="form-group">
+            <label for="rating">Rating</label>
+            <input
+              type="rating"
+              id="rating"
+              name="rating"
+              class="form-control"
+              placeholder="Rating 1-10"
+              value=""
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            Save those thoughts!
+          </button>
+        </form>
+        <br>
+        <!-- <a href = '#' class="btn btn-primary btn-block"> -->
+        <a href="javascript:void(0)" class="btn btn-primary btn-block" onclick="javascript:cancelUpdate()">
+            Cancel
+          </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
     <div id="thinks">
       <ul id="ulResults"></ul>      
       <table id="thoughtsTable" class="table table-striped table-bordered">
@@ -52,6 +197,8 @@
         let thoughtsList = $('#thoughtsTBody');
           thoughtsList.empty();
           $('#getThoughts').click(() => {
+                      // $('#mainPage').onload(() => {
+
           //  const info = 
            $('#thoughtsTable').DataTable();
             // "processing": true,
@@ -76,7 +223,7 @@
             });
           });
                     // });
-
+            // specifically designating columns here doesn't seem to work for show/search issue
             // ,
             // "columns": [
             //   {"data" : "Name"},
@@ -115,6 +262,7 @@
                     // });
 
       // });
+          // tried destroy on table but didn't matter for show/search issue
           //   $('#thoughtsTable').dataTable().fnDestroy();
           //   $('#thoughtsTable').dataTable({
           //   lengthChange: false,
@@ -167,7 +315,8 @@
             let thoughts = data[i].myThoughts;
             console.log(thoughts);
             let rating=data[i].rating;
-              
+            let id = data[i]._id
+            console.log('id: ', id);
             if (name == ''){
               name = 'not available';
             }
@@ -177,14 +326,29 @@
             if (thoughts == ''){
               thoughts = 'not available';
             }
-            if (rating == 'null'){
+            if (rating < 1 || rating >10 || rating == '' || rating =='null'){
               rating = 'not available';
             }
 
-            thoughtList.append('<tr><td>'+name+'</td><td>' + description + '</td><td>' + thoughts + '</td><td>'+rating+'</td></tr>');
+            // thoughtList.append('<tr><td><a href="javascript:void(0)" onclick="javascript:updateInfo('+name+')">' + name + '</a></td><td>' + description + '</td><td>' + thoughts + '</td><td>' + rating + '</td></tr>');
+                        // thoughtList.append('<tr><td><a href="#" onclick="javascript:updateInfo('+id+')">' + name + '</a></td><td>' + description + '</td><td>' + thoughts + '</td><td>' + rating + '</td></tr>');
+
+                        thoughtList.append('<tr><td><a href="javascript:void(0)" onclick="javascript:updateInfo()">' + name + '</a></td><td>' + description + '</td><td>' + thoughts + '</td><td>' + rating + '</td></tr>');
+
           }
-          console.log('data.Search else');
+          // console.log('id: ', data_id);
       }
+      function updateInfo (id) {
+        document.getElementById('additionalInfo').style.display= 'block';
+        document.getElementById('additionalInfo').style.marginLeft= '3em';
+        document.getElementById('name').value= 'Tuacahn';
+        document.getElementById('name2').innerHTML= id;
+
+        // console.log(id);
+      }
+function cancelUpdate() {
+  document.getElementById('additionalInfo').style.display='none';
+}
     </script>
   </body>
 </html>
