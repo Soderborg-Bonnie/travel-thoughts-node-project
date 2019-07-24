@@ -1,36 +1,23 @@
 
 <h1>saved ya some thoughts:</h1><br>
-<a href = '../travelthoughts2.html' class="btn btn-primary" id = "travelBtn">Return to Thoughts List</a>
+<a href = '/dashboard' class="btn btn-primary" id = "travelBtn">Return to Dashboard</a>
 <hr>
 <div class="row">
-  <!-- {{#each thoughts}} -->
   <div class="col s12 m4">
     <div class="card">
       <div class="card-content">
           <h3>Name: <%= req.body.name %></h3> 
-
           <h3>Date: <%= req.body.date %></h3> 
-  
           <h3>Description: <%= req.body.description %></h3> 
-  
           <h3>Thoughts: <%= req.body.myThoughts %></h3> 
-  
           <h3>GPS location: <%= req.body.locationGPS %></h3> 
-  
           <h3>City: <%= req.body.locationCity %></h3> 
-  
           <h3>State: <%= req.body.locationState %></h3> 
-  
           <h3>Country: <%= req.body.locationCountry %></h3> 
-  
           <h3>Pass: <%= req.body.pass %></h3> 
-  
           <h3>Cost: <%= req.body.cost %></h3> 
-  
           <h3>Rating: <%= req.body.rating %></h3>
       </div>
     </div>
   </div>
-  <!-- {{else}} -->
-  <!-- {{each}} -->
 </div>

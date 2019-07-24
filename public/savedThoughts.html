@@ -24,12 +24,10 @@
         <img src="images/campground2.jpg" alt="campground sign" id='campSign'>
     </header>
       <h1>Search National Park Service Campgrounds</h1>
-      <!-- <img src="images/campground2.jpg" alt="campground sign"> -->
       <hr>
     <form>
       <label for="state">State</label>
       <input type="text" name ="state" id="state" maxlength='2'><br><br>
-      <!-- <button type="button" onclick="getCampgrounds(state.value)">Search</button>  -->
       <button type="button" id="getCampgrounds" class = "btn btn-primary btn-lg">Search...but wait patiently...NPS is kinda slow</button> 
       <a href = 'dashboard' class="btn btn-secondary return">Return to dashboard</a>             
     </form>
@@ -52,7 +50,6 @@
 
       <script type="text/javascript">
         $(document).ready(() => {
-          // $('#NPSCampgroundsTable').DataTable();
           let thoughtsList = $('#thoughtsTBody');
           thoughtsList.empty();
           $('#getCampgrounds').click(() => {
@@ -109,11 +106,7 @@
               }else{
               campList.append('<tr><td><a href="' + directionsUrl + '">' + name + '</a></td><td>' + description + '</td><td>' + totalSites + '</td><td>'+directionsOverview+'</td></tr>');
               };
-
-
-              // resultList.append('<li><p>'+name+'</p><p>' + description + '</p><p>' + totalSites + '</p><p>'+directionsOverview+'</p></li>');
-              // campList.append('<tr><td><a href="' + directionsUrl + '">' + name + '</a></td><td>' + description + '</td><td>' + totalSites + '</td><td>'+directionsOverview+'</td></tr>');
-              }
+            }
           }
               console.log('data.Search else');
         }

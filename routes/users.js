@@ -118,12 +118,7 @@ router.get('/viewThoughts', (req, res) => {
                 name = res.json(Thoughts)
                 
                 )
-          // .then(Thoughts => res.render('viewList'))
-          // .then(Thoughts => res.render('viewThoughtsList'))
-          // .then(Thoughts => res.json.stringify(Thoughts, null, 2))
-          // console.log(Thoughts.date)
           .catch(err => res.status(404).json({nothoughtsfound: "No thoughts found. Just tumbleweeds."}));
-          // res.render('viewThoughtsList', res)
 });
 
 

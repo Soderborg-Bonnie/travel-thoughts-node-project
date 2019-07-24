@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
 const ThoughtsSchema = new mongoose.Schema({
-  // add images
-  // add field referencing id in users
   name: {
     type: String,
     required: true

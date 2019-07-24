@@ -40,12 +40,9 @@
     <br><br><br>   
   <div id = 'mainArea'>
     <div id ='leftNav'>
-      <!-- <a href="/info/additions" id = "additions" class = "btn btn-primary btn-lg btn-block">Add thought</a> -->
       <button onclick ="addInfo()" id = "additions" class = "btn btn-primary btn-lg btn-block">Add thought</button>
-
       <button type="button" id="travelthoughts2" class="btn btn-primary btn-lg btn-block">View thoughts</button>
       <button type="button" id="savedThoughts" class="btn btn-primary btn-lg btn-block">View campgrounds</button>
-
       <a href = '/users/logout' id="logout" class="btn btn-primary btn-lg btn-block">Logout</a>
     </div>
     <div id = 'dynamicArea'>
@@ -204,23 +201,6 @@
 <script type="text/javascript">
 
       $(document).ready(() => {
-        // let thoughtsList = $('#thoughtsTBody');
-        // thoughtsList.empty();
-        // $('#getThoughts').click(() => {
-        //   $('#thoughtsTable').DataTable();
-        //     $.ajax({
-        //       type: 'GET',
-        //       url: "/info/viewThoughts",
-        //       dataType: 'json',
-        //       success: (data) => {
-        //         console.log('ajax success!', data);
-        //         updateResultList(data);
-        //       } 
-        //     }).done(function(data){
-        //       console.log(data);
-        //     });
-        // });
-
         $('#additions').click(() => {
           // $('#thoughtsTable').DataTable();
             $.ajax({
@@ -244,7 +224,7 @@
         $('#travelthoughts2').click(() => {
           // setTimeout(() =>{
           $('#thoughtsTable').dataTable({
-            // lengthChange: false,
+            lengthChange: false,
             "processing": true,
             "paging": true,
             "pageLength": 10,
@@ -256,10 +236,10 @@
               dataSrc: 'dataX'
               dataType: 'json',
               "deferRender": true,
-              // success: (data) => {
-              //   console.log('ajax success!', data);
-              //   updateResultList(data);
-              // } 
+              success: (data) => {
+                console.log('ajax success!', data);
+                updateResultList(data);
+              } 
             }
             // ,
             columns: [
@@ -269,10 +249,10 @@
               {data : "Rating"},
             ]
             // )
-            // .done(function(data){
-            //   console.log(data);
-            // // });
+            .done(function(data){
+              console.log(data);
             // });
+            });
           });
         // });
                   // }, 100)
@@ -296,25 +276,23 @@
  
         $('#logout').click(() => {
           console.log('logging out');
-          // $('#thoughtsTable').DataTable();
+          $('#thoughtsTable').DataTable();
             $.ajax({
               type: 'GET',
               url: "/users/logout",
-              // dataType: 'json',
-              // success: (data) => {
-                // console.log('logged out!');
-              // } 
+              dataType: 'json',
+              success: (data) => {
+                console.log('logged out!');
+              } 
             })
             console.log('logged out');
 
         });
-                  // });
-
       });
+    });
       
 
         function updateResultList(data) {
-          // $('#NPSCampgroundsTable').DataTable();
           let dataTable = $('#thoughtsTable');
           dataTable.empty();
           dataTable.append('<thead><tr><th class="tableDisplay">'+ 'Name' +'</th><th class="tableDisplay">'+ 'Description' +'</th><th class="tableDisplay">'+ 'Thoughts' +'</th><th class="tableDisplay">'+ 'Rating' +'</th></tr></thead><tbody id="thoughtsTBody"></tbody');
@@ -352,6 +330,5 @@
         console.log('data.Search else');
 }
     </script>
-
-</body>
+  </body>
 </html>

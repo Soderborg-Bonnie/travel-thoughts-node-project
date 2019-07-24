@@ -28,28 +28,37 @@ router.get('/additions', (req, res) => res.render('additions'));
 
 // view saved info
 router.get('/viewThoughts', (req, res) => {
+  Thoughts.find()
+    .sort({date: -1})
+    .then(Thoughts => {
+          res.setHeader('Content-Type', 'application/json')
+          res.json(Thoughts)
+          })   
+          .catch(err => res.status(404).json({nothoughtsfound: "No thoughts found. Just tumbleweeds."}));
+});
+
   // Thoughts.find({_id: '5d17df1cd8fc2d58305796f2'})
   
-  const arrX ='{'+
-'  "draw": 1,'+
-'  "length": 2,'+
-'  "recordsTotal": 2,'+
-'  "recordsFiltered": 2,'+
-'  "dataX": ['+
-'    ['+
-'      "Airi",'+
-'      "Satou",'+
-'      "Accountant",'+
-'      "Tokyo"'+
-'    ],'+
-'    ['+
-'      "Angelica",'+
-'      "Ramos",'+
-'      "Chief Executive Officer (CEO)",'+
-'      "London"'+
-'    ]'+
-'  ]'+
-'}';
+//   const arrX ='{'+
+// '  "draw": 1,'+
+// '  "length": 2,'+
+// '  "recordsTotal": 2,'+
+// '  "recordsFiltered": 2,'+
+// '  "dataX": ['+
+// '    ['+
+// '      "Airi",'+
+// '      "Satou",'+
+// '      "Accountant",'+
+// '      "Tokyo"'+
+// '    ],'+
+// '    ['+
+// '      "Angelica",'+
+// '      "Ramos",'+
+// '      "Chief Executive Officer (CEO)",'+
+// '      "London"'+
+// '    ]'+
+// '  ]'+
+// '}';
 
 // let strBuilder='';
 // result.rows.forEach((v) => {
@@ -76,16 +85,6 @@ router.get('/viewThoughts', (req, res) => {
 
 
   // Thoughts.find()
-  Thoughts.find()
-          .sort({date: -1})
-          .then(Thoughts => {
-                // res.send(Thoughts)
-                
-                // )
-                
-          res.setHeader('Content-Type', 'application/json')
-          //has added [] around everything, dataTables error 1, res.send is the same
-          res.json(Thoughts)
 
         // res.end("{draw:1, length:7, recordsTotal:7, recordsFiltered: 7, dataX:" + "["+JSON.stringify(Thoughts)+"]" + "}")
         // not correct format, get dataTable error 1, has \n added everywhere
@@ -138,12 +137,12 @@ router.get('/viewThoughts', (req, res) => {
           //  res.end(sjson) 
           // res.end(arrX)
       
-          })   
-// name = res.json(Thoughts)
+//           })   
+// // name = res.json(Thoughts)
  
-          .catch(err => res.status(404).json({nothoughtsfound: "No thoughts found. Just tumbleweeds."}));
+//           .catch(err => res.status(404).json({nothoughtsfound: "No thoughts found. Just tumbleweeds."}));
 
-});
+// });
 
 
 // new info handle
@@ -202,9 +201,7 @@ router.post('/saveForm2', (req, res) => {
         // newThoughts.updateOne()
         newThoughts.save()
         res.redirect('../travelthoughts2.html')
-        // res.end('../travelthoughts2.html')
-      }
-          //  .catch(err => console.log(err));
+  }
 });
 
 
@@ -212,8 +209,6 @@ function logRequest(request, res, next)
 {
     // DEBUG ONLY -- console.log('LOG: Time:', Date.now())
     console.log("LOG: Received a "+ request.method +" request for: " + request.url);
-
-
     next()
 }
 
