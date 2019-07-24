@@ -183,8 +183,9 @@ router.post('/saveForm2', (req, res) => {
     // fields can't be empty
     errors.push({ msg: 'Please at least fill in the name' });
   }else{
-
-        // create new thought
+    // Thoughts.findOne({name: name})
+    //   .then(Thoughts => {
+      // create new thought
         const newThoughts = new Thoughts({
           name,
           date,
@@ -198,11 +199,13 @@ router.post('/saveForm2', (req, res) => {
           cost,
           rating
         });
+        // newThoughts.updateOne()
         newThoughts.save()
         res.redirect('../travelthoughts2.html')
         // res.end('../travelthoughts2.html')
-
-      }});
+      }
+          //  .catch(err => console.log(err));
+});
 
 
 function logRequest(request, res, next)
